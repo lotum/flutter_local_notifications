@@ -322,15 +322,15 @@ static FlutterError *getFlutterError(NSError *error) {
     }
     if (badgePermission) {
       authorizationOptions += UNAuthorizationOptionBadge;
-    [center requestAuthorizationWithOptions:(authorizationOptions)
     }
     if (@available(iOS 12.0, *) && provisionalPermission) {
       authorizationOptions += UNAuthorizationOptionProvisional;
     }
-  completionHandler:^(BOOL granted,
+    [center requestAuthorizationWithOptions:(authorizationOptions)
+                          completionHandler:^(BOOL granted,
                                               NSError *_Nullable error) {
-      result(@(granted));
-        }];
+                            result(@(granted));
+                          }];
   } else {
     UIUserNotificationType notificationTypes = 0;
     if (soundPermission) {

@@ -360,15 +360,16 @@ public class FlutterLocalNotificationsPlugin
     if (tries == 0) {
       return;
     }
-    executorService.execute(new Runnable() {
-      @Override
-      public void run() {
-        final boolean isCommitted = editor.commit();
-        if (!isCommitted) {
-          tryCommittingInBackground(editor, tries - 1);
-        }
-      }
-    });
+    executorService.execute(
+        new Runnable() {
+          @Override
+          public void run() {
+            final boolean isCommitted = editor.commit();
+            if (!isCommitted) {
+              tryCommittingInBackground(editor, tries - 1);
+            }
+          }
+        });
   }
 
   static void removeNotificationFromCache(Context context, Integer notificationId) {

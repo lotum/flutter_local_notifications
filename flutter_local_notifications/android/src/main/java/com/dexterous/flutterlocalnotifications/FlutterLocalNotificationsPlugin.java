@@ -70,6 +70,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import io.flutter.FlutterInjector;
 import io.flutter.embedding.engine.loader.FlutterLoader;
@@ -140,6 +142,8 @@ public class FlutterLocalNotificationsPlugin
           + " your Android head project.";
   private static final String CANCEL_ID = "id";
   private static final String CANCEL_TAG = "tag";
+  private static ExecutorService executorService = Executors.newFixedThreadPool(4);
+
   static String NOTIFICATION_DETAILS = "notificationDetails";
   static Gson gson;
   private MethodChannel channel;
@@ -356,17 +360,15 @@ public class FlutterLocalNotificationsPlugin
     if (tries == 0) {
       return;
     }
-    new Thread(
-            new Runnable() {
-              @Override
-              public void run() {
-                final boolean isCommitted = editor.commit();
-                if (!isCommitted) {
-                  tryCommittingInBackground(editor, tries - 1);
-                }
-              }
-            })
-        .start();
+    executorService.execute(new Runnable() {
+      @Override
+      public void run() {
+        final boolean isCommitted = editor.commit();
+        if (!isCommitted) {
+          tryCommittingInBackground(editor, tries - 1);
+        }
+      }
+    });
   }
 
   static void removeNotificationFromCache(Context context, Integer notificationId) {

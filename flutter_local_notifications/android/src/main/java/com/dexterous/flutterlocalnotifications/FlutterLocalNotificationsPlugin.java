@@ -142,7 +142,7 @@ public class FlutterLocalNotificationsPlugin
           + " your Android head project.";
   private static final String CANCEL_ID = "id";
   private static final String CANCEL_TAG = "tag";
-  private static ExecutorService executorService = Executors.newFixedThreadPool(4);
+  private static ExecutorService committingExecutor = Executors.newFixedThreadPool(4);
 
   static String NOTIFICATION_DETAILS = "notificationDetails";
   static Gson gson;
@@ -357,16 +357,15 @@ public class FlutterLocalNotificationsPlugin
 
   private static void tryCommittingInBackground(
       final SharedPreferences.Editor editor, final int tries) {
-    if (tries == 0) {
-      return;
-    }
-    executorService.execute(
+    committingExecutor.execute(
         new Runnable() {
           @Override
           public void run() {
-            final boolean isCommitted = editor.commit();
-            if (!isCommitted) {
-              tryCommittingInBackground(editor, tries - 1);
+            for (int i = 0; i < tries; i++) {
+              final boolean isCommitted = editor.commit();
+              if (isCommitted) {
+                return;
+              }
             }
           }
         });

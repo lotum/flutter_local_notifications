@@ -102,7 +102,7 @@ interface PermissionRequestListener {
   void fail(String message);
 }
 
-interface NotificationShownListener {
+public interface NotificationShownListener {
   void shown(Context context, NotificationDetails details);
 }
 

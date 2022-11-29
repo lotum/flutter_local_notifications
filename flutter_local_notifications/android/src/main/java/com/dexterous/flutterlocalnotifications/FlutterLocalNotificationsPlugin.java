@@ -102,6 +102,10 @@ interface PermissionRequestListener {
   void fail(String message);
 }
 
+interface NotificationShownListener {
+  void shown(Context context, NotificationDetails details);
+}
+
 /** FlutterLocalNotificationsPlugin */
 @Keep
 public class FlutterLocalNotificationsPlugin
@@ -190,6 +194,8 @@ public class FlutterLocalNotificationsPlugin
   static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
   private PermissionRequestListener callback;
   private boolean permissionRequestInProgress = false;
+
+  public static NotificationShownListener onNotificationShown;
 
   static void rescheduleNotifications(Context context) {
     ArrayList<NotificationDetails> scheduledNotifications = loadScheduledNotifications(context);
@@ -1166,6 +1172,10 @@ public class FlutterLocalNotificationsPlugin
           notificationDetails.tag, notificationDetails.id, notification);
     } else {
       notificationManagerCompat.notify(notificationDetails.id, notification);
+    }
+
+    if (onNotificationShown != null) {
+      onNotificationShown.shown(context, notificationDetails);
     }
   }
 

@@ -102,10 +102,6 @@ interface PermissionRequestListener {
   void fail(String message);
 }
 
-public interface NotificationShownListener {
-  void shown(Context context, NotificationDetails details);
-}
-
 /** FlutterLocalNotificationsPlugin */
 @Keep
 public class FlutterLocalNotificationsPlugin
@@ -194,6 +190,10 @@ public class FlutterLocalNotificationsPlugin
   static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
   private PermissionRequestListener callback;
   private boolean permissionRequestInProgress = false;
+
+  public interface NotificationShownListener {
+    void shown(Context context, NotificationDetails details);
+  }
 
   public static NotificationShownListener onNotificationShown;
 

@@ -1095,6 +1095,12 @@ public class FlutterLocalNotificationsPlugin
     if (VERSION.SDK_INT >= VERSION_CODES.O) {
       NotificationManager notificationManager =
           (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+      // Set default value to work around crash with mysteriously missing importance
+      if (notificationChannelDetails.importance == null) {
+        notificationChannelDetails.importance = NotificationManager.IMPORTANCE_DEFAULT;
+      }
+
       NotificationChannel notificationChannel =
           new NotificationChannel(
               notificationChannelDetails.id,

@@ -1108,6 +1108,7 @@ public class FlutterLocalNotificationsPlugin
               notificationChannelDetails.importance);
       notificationChannel.setDescription(notificationChannelDetails.description);
       notificationChannel.setGroup(notificationChannelDetails.groupId);
+
       if (notificationChannelDetails.playSound) {
         Integer audioAttributesUsage =
             notificationChannelDetails.audioAttributesUsage != null
@@ -1122,17 +1123,20 @@ public class FlutterLocalNotificationsPlugin
       } else {
         notificationChannel.setSound(null, null);
       }
+
       notificationChannel.enableVibration(
           BooleanUtils.getValue(notificationChannelDetails.enableVibration));
       if (notificationChannelDetails.vibrationPattern != null
           && notificationChannelDetails.vibrationPattern.length > 0) {
         notificationChannel.setVibrationPattern(notificationChannelDetails.vibrationPattern);
       }
+
       boolean enableLights = BooleanUtils.getValue(notificationChannelDetails.enableLights);
       notificationChannel.enableLights(enableLights);
       if (enableLights && notificationChannelDetails.ledColor != null) {
         notificationChannel.setLightColor(notificationChannelDetails.ledColor);
       }
+
       notificationChannel.setShowBadge(BooleanUtils.getValue(notificationChannelDetails.showBadge));
       notificationManager.createNotificationChannel(notificationChannel);
     }

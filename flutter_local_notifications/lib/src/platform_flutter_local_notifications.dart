@@ -409,11 +409,11 @@ class AndroidFlutterLocalNotificationsPlugin
 
   Map<String, Object?> _buildPlatformSpecifics(
     AndroidNotificationDetails? notificationDetails,
-    AndroidScheduleMode scheduleType,
+    AndroidScheduleMode scheduleMode,
   ) =>
       <String, Object?>{
         if (notificationDetails != null) ...notificationDetails.toMap(),
-        'scheduleType': scheduleType.name,
+        'scheduleMode': scheduleMode.name,
       };
 
   /// Cancel/remove the notification with the specified id.

@@ -29,7 +29,7 @@ public enum ScheduleType {
                 throws JsonParseException {
             try {
                 return ScheduleType.valueOf(json.getAsString());
-            } catch {
+            } catch (Exception e) {
                 return json.getAsBoolean() ? ScheduleType.exactAllowWhileIdle : ScheduleType.inexact;
             }
         }

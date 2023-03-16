@@ -72,6 +72,7 @@ import com.dexterous.flutterlocalnotifications.utils.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.FileInputStream;
 import java.io.IOException;

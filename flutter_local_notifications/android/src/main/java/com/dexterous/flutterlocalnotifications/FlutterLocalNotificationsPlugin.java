@@ -1142,6 +1142,7 @@ public class FlutterLocalNotificationsPlugin
       if (notificationChannelDetails.importance == null) {
         notificationChannelDetails.importance = NotificationManager.IMPORTANCE_DEFAULT;
       }
+
       NotificationChannel notificationChannel =
           new NotificationChannel(
               notificationChannelDetails.id,
@@ -1149,6 +1150,7 @@ public class FlutterLocalNotificationsPlugin
               notificationChannelDetails.importance);
       notificationChannel.setDescription(notificationChannelDetails.description);
       notificationChannel.setGroup(notificationChannelDetails.groupId);
+
       if (notificationChannelDetails.playSound) {
         Integer audioAttributesUsage =
             notificationChannelDetails.audioAttributesUsage != null
@@ -1163,19 +1165,26 @@ public class FlutterLocalNotificationsPlugin
       } else {
         notificationChannel.setSound(null, null);
       }
+
       notificationChannel.enableVibration(
           BooleanUtils.getValue(notificationChannelDetails.enableVibration));
       if (notificationChannelDetails.vibrationPattern != null
           && notificationChannelDetails.vibrationPattern.length > 0) {
         notificationChannel.setVibrationPattern(notificationChannelDetails.vibrationPattern);
       }
+
       boolean enableLights = BooleanUtils.getValue(notificationChannelDetails.enableLights);
       notificationChannel.enableLights(enableLights);
       if (enableLights && notificationChannelDetails.ledColor != null) {
         notificationChannel.setLightColor(notificationChannelDetails.ledColor);
       }
       notificationChannel.setShowBadge(BooleanUtils.getValue(notificationChannelDetails.showBadge));
-      notificationManager.createNotificationChannel(notificationChannel);
+
+      try {
+        notificationManager.createNotificationChannel(notificationChannel);
+      } catch (Exception e) {
+        Log.e("notification", "Error creating notification channel", e);
+      }
     }
   }
 

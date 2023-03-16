@@ -482,9 +482,14 @@ public class FlutterLocalNotificationsPlugin
         context.getSharedPreferences(SCHEDULED_NOTIFICATIONS, Context.MODE_PRIVATE);
     String json = sharedPreferences.getString(SCHEDULED_NOTIFICATIONS, null);
     if (json != null) {
-      Gson gson = buildGson();
-      Type type = new TypeToken<ArrayList<NotificationDetails>>() {}.getType();
-      scheduledNotifications = gson.fromJson(json, type);
+      try {
+        Gson gson = buildGson();
+        Type type = new TypeToken<ArrayList<NotificationDetails>>() {
+        }.getType();
+        scheduledNotifications = gson.fromJson(json, type);
+      } catch (JsonSyntaxException e) {
+        Log.e("notification", "Error deserializing scheduled notifications", e);
+      }
     }
     return scheduledNotifications;
   }

@@ -485,8 +485,7 @@ public class FlutterLocalNotificationsPlugin
     if (json != null) {
       try {
         Gson gson = buildGson();
-        Type type = new TypeToken<ArrayList<NotificationDetails>>() {
-        }.getType();
+        Type type = new TypeToken<ArrayList<NotificationDetails>>() {}.getType();
         scheduledNotifications = gson.fromJson(json, type);
       } catch (JsonSyntaxException e) {
         Log.e("notification", "Error deserializing scheduled notifications", e);

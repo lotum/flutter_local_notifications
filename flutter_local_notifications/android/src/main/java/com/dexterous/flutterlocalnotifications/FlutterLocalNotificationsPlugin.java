@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioAttributes;
@@ -2095,7 +2096,7 @@ public class FlutterLocalNotificationsPlugin
                 channelPayload.put("soundSource", soundSources.indexOf(SoundSource.RawResource));
                 channelPayload.put("sound", resourceName);
               }
-            } catch (Resources.NotFoundException e) {
+            } catch (NotFoundException ex) {
             }
           }
         } else {

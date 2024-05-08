@@ -2090,7 +2090,8 @@ public class FlutterLocalNotificationsPlugin
           } else {
             // Kept for backwards compatibility when the source resource used to be based on id
             try {
-              String resourceName = applicationContext.getResources().getResourceEntryName(resourceId);
+              String resourceName =
+                  applicationContext.getResources().getResourceEntryName(resourceId);
               if (resourceName != null) {
                 channelPayload.put("soundSource", soundSources.indexOf(SoundSource.RawResource));
                 channelPayload.put("sound", resourceName);

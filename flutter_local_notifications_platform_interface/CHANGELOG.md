@@ -1,3 +1,14 @@
+## [8.1.0-dev.1]
+
+* Added `data` property to `NotificationResponse` class to support notification actions on Windows. Thanks to the PR from [Levi Lesches](https://github.com/Levi-Lesches)
+
+## [8.0.0]
+
+* **Breaking change** Bumped minimum Flutter SDK requirement to 3.13
+
+## [7.2.0]
+
+* Added `periodicallyShowWithDuration()` and corresponding `validateRepeatDurationInterval()` helper method to ensure duration is at least a minute
 
 ## [7.1.0]
 
